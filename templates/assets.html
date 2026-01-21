@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Assets | Ekarshinga Store</title>
+<link rel="stylesheet" href="/static/css/style.css">
+
+<style>
+.search-bar, .filter {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    margin-bottom: 12px;
+}
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #12172a;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #00e5ff;
+}
+.bottom-nav a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1 class="logo">
+        <img src="/static/images/logo.png" alt="Ekarshinga Store">
+        Ekarshinga Store
+    </h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/upload">Upload</a>
+    </nav>
+</header>
+
+<section class="assets">
+
+    <!-- SEARCH + FILTER -->
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search assets...">
+
+    <select id="categoryFilter" class="filter">
+        <option value="all">All Categories</option>
+        <option value="Character">Character</option>
+        <option value="Tileset">Tileset</option>
+        <option value="Background">Background</option>
+        <option value="UI">UI</option>
+        <option value="FX">FX</option>
+        <option value="3D Model">3D Model</option>
+    </select>
+
+    <!-- ASSET GRID -->
+    <div class="asset-grid" id="assetGrid">
+        {% for asset in assets %}
+        <div class="asset-card" data-name="{{ asset.name | lower }}" data-category="{{ asset.category }}">
+            <img src="/preview/{{ asset.preview_image }}">
+            <h3>{{ asset.name }}</h3>
+            <p>{{ asset.category }} • {{ asset.asset_type }}</p>
+
+            {% if asset.price == 0 %}
+                <p class="free">FREE</p>
+                <a class="btn small" href="/asset/{{ asset.id }}">Download</a>
+            {% else %}
+                <p>₹{{ asset.price }}</p>
+                <a class="btn small" href="/asset/{{ asset.id }}">View & Buy</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <a href="/">Home</a>
+    <a href="/assets">Assets</a>
+    <a href="/upload">Upload</a>
+</div>
+
+<footer>© 2026 Ekarshinga Store</footer>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+const cards = document.querySelectorAll(".asset-card");
+
+function filterAssets() {
+    const search = searchInput.value.toLowerCase();
+    const category = categoryFilter.value;
+
+    cards.forEach(card => {
+        const name = card.dataset.name;
+        const cat = card.dataset.category;
+
+        const matchSearch = name.includes(search);
+        const matchCategory = category === "all" || cat === category;
+
+        card.style.display = (matchSearch && matchCategory) ? "block" : "none";
+    });
+}
+
+searchInput.addEventListener("input", filterAssets);
+categoryFilter.addEventListener("change", filterAssets);
+</script>
+
+</body>
+</html>

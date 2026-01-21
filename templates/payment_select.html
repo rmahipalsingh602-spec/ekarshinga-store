@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Choose Payment | Ekarshinga Store</title>
+<link rel="stylesheet" href="/static/css/style.css">
+
+<style>
+.payment-box {
+    max-width: 400px;
+    margin: 60px auto;
+    background: linear-gradient(145deg, #12172a, #050814);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+.payment-box h2 {
+    margin-bottom: 10px;
+}
+.payment-box p {
+    color: #b0b8ff;
+    margin-bottom: 20px;
+}
+.pay-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1 class="logo">
+        <img src="/static/images/logo.png" alt="Ekarshinga Store">
+        Ekarshinga Store
+    </h1>
+</header>
+
+<div class="payment-box">
+    <h2>Pay for</h2>
+    <h3>{{ asset.name }}</h3>
+    <p>Price: ₹{{ asset.price }}</p>
+
+    <!-- Buttons with real links -->
+    <a href="/pay/razorpay/{{ asset.id }}" class="btn pay-btn">Razorpay (India)</a>
+    <a href="/pay/stripe/{{ asset.id }}" class="btn pay-btn">Stripe (Global)</a>
+
+    <p style="font-size:13px;margin-top:15px;">
+        Secure payment • Instant access
+    </p>
+</div>
+
+</body>
+</html>
+

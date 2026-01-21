@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ asset.name }} | Ekarshinga Store</title>
+<link rel="stylesheet" href="/static/css/style.css">
+
+<style>
+/* Extra UI */
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.filter {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+/* Bottom nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #12172a;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #00e5ff;
+}
+
+.bottom-nav a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1 class="logo">
+        <img src="/static/images/logo.png" alt="Ekarshinga Store">
+        Ekarshinga Store
+    </h1>
+</header>
+
+<section class="assets">
+
+    <!-- SEARCH + FILTER -->
+    <input type="text" class="search-bar" placeholder="Search assets...">
+    <select class="filter">
+        <option>All Categories</option>
+        <option>Character</option>
+        <option>Tileset</option>
+        <option>Background</option>
+        <option>UI</option>
+        <option>FX</option>
+        <option>3D Model</option>
+    </select>
+
+    <!-- ASSET CARD -->
+    <div class="asset-card" style="max-width:600px;margin:auto">
+        <img src="/preview/{{ asset.preview_image }}">
+        <h2>{{ asset.name }}</h2>
+        <p>{{ asset.category }} • {{ asset.asset_type }}</p>
+
+        {% if asset.price == 0 %}
+            <p class="free">FREE</p>
+            <a class="btn" href="/download/{{ asset.filename }}">Download</a>
+        {% else %}
+            <p>₹{{ asset.price }}</p>
+            <a class="btn" href="/buy/{{ asset.id }}">Buy Now</a>
+        {% endif %}
+    </div>
+
+</section>
+
+<!-- BOTTOM MOBILE NAV -->
+<div class="bottom-nav">
+    <a href="/">Home</a>
+    <a href="/assets">Assets</a>
+    <a href="/upload">Upload</a>
+</div>
+
+<footer>© 2026 Ekarshinga Store</footer>
+
+</body>
+</html>
